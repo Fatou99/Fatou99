@@ -6,6 +6,8 @@ class Report {
   String urlToImage;
   String time;
   String description;
+  String gouvernorat;
+  String delegation;
 
   Report({
     this.longitude = 0,
@@ -14,6 +16,8 @@ class Report {
     this.urlToImage = '',
     this.time = '',
     this.description = '',
+    this.gouvernorat='',
+    this.delegation='',
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +29,8 @@ class Report {
     data['urlToImage'] = this.urlToImage;
     data['time'] = this.time;
     data['description'] = this.description;
+    data['gouvernorat']=this.gouvernorat;
+    data['delegation']=this.delegation;
     return data;
   }
 }

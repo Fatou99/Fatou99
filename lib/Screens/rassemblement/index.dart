@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dribbbledanimation/api/reportApi.dart';
+import 'package:dribbbledanimation/models/gouvernement.dart';
 import 'package:dribbbledanimation/models/rapport.dart';
 import 'package:dribbbledanimation/services/sendingReports.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,19 @@ class Gathering extends StatefulWidget {
   @override
   _GatheringState createState() => _GatheringState();
 }
+var gouvernement = new Gouvernement();
+String selectedIndex = gouvernement.gouvernoratsName[0];
+List<String> selectedIndexD = [
+  "Ariana Ville",
+  "Ettadhamen",
+  "Kalâat el-Andalous",
+  "La Soukra",
+  "Mnihla",
+  "Raoued",
+  "Sidi Thabet"
+];
+// String selectedIndexDe=selectedIndexD[0];
+String selectedIndexDe = "Ariana Ville";
 
 class _GatheringState extends State<Gathering> {
   @override
@@ -134,6 +148,55 @@ class _GatheringState extends State<Gathering> {
                                                             child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
+                                         Text("Choisir votre gouvernorat"),
+                                          ////////////Gouvernorat//////////////
+                                          DropdownButton(
+                                              //nchouf l kobr
+                                              value: (selectedIndex != null)
+                                                  ? selectedIndex
+                                                  : null,
+                                              items: gouvernement
+                                                  .gouvernoratsName
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(value));
+                                              }).toList(),
+                                              onChanged: (String value) {
+                                                setState(() {
+                                                  selectedIndex = value;
+                                                  gouvernement
+                                                          .selectedGouvernorat =
+                                                      selectedIndex;
+                                                  selectedIndexD = gouvernement
+                                                      .getDelegation();
+                                                  selectedIndexDe =
+                                                      selectedIndexD[0];
+                                                });
+                                              }),
+                                          SizedBox(height: deviceHeight * 0.01),
+                                          ///////////delegation/////////
+                                          Text("Choisir votre délégation"),
+                                          DropdownButton(
+                                              //nchouf l kobr
+                                              value: (selectedIndexDe != null)
+                                                  ? selectedIndexDe
+                                                  : "null",
+                                              items: selectedIndexD.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(value));
+                                              }).toList(),
+                                              onChanged: (String value) {
+                                                setState(() {
+                                                  selectedIndexDe = value;
+                                                });
+                                              }),
                                       SizedBox(height: deviceHeight * 0.01),
                                       Container(
                                           width: 300,
@@ -147,8 +210,8 @@ class _GatheringState extends State<Gathering> {
                                               focusColor: Colors.black,
                                               border: OutlineInputBorder(),
                                               labelText: langu == "Fr"
-                                                  ? "Ajouter une description indiquant l'endroit"
-                                                  : "إضافة وصف للموقع",
+                                                  ? "Ajouter une description"
+                                                  : "إضافة وصف ",
                                               labelStyle: new TextStyle(
                                                 color: const Color(0xFF424242),
                                               ),
@@ -259,6 +322,10 @@ class _GatheringState extends State<Gathering> {
                                               String currentTime =
                                                   DateTime.now().toString();
                                               report.time = currentTime;
+                                               report.gouvernorat =
+                                                      selectedIndex;
+                                                  report.delegation =
+                                                      selectedIndexDe;
                                               var data = report.toJson();
                                               
                                               Alert(
