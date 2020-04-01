@@ -138,7 +138,7 @@ class _QuarantaineState extends State<Quarantaine> {
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 children: <Widget>[
-                                                  SizedBox(height:deviceHeight*0.2),
+                                                  SizedBox(height:deviceHeight*0.1),
                           Card(
                               elevation: 4.0,
                               margin: EdgeInsets.only(left: 20, right: 20),
