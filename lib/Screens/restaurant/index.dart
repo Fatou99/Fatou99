@@ -182,6 +182,7 @@ class _RestaurantState extends State<Restaurant> {
                                           SizedBox(height: deviceHeight * 0.01),
                                           ///////////delegation/////////
                                           Text("Choisir votre délégation"),
+                                          selectedIndexD==null?
                                           DropdownButton(
                                               //nchouf l kobr
                                               value: (selectedIndexDe != null)
@@ -198,7 +199,8 @@ class _RestaurantState extends State<Restaurant> {
                                                 setState(() {
                                                   selectedIndexDe = value;
                                                 });
-                                              }),
+                                              })
+                                              :Container(),
                                       SizedBox(height: deviceHeight * 0.01),
                                       Container(
                                           width: 300,

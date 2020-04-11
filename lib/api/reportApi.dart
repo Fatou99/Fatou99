@@ -15,8 +15,8 @@ class CallApi{
     }
 
 
-    getData(apiUrl) async {
-       var fullUrl = _url + apiUrl ; 
+ getData(id) async {
+       var fullUrl = _url +'getdeleg?gouv='+ id ;
        return await http.get(
          fullUrl, 
          headers: _setHeaders()
